@@ -41,6 +41,7 @@ print(trans_dim)
 
 # 复制
 # 以下步骤，tf自动完成，expand+tile=broadcast
+print('------------tile---------------')
 b_tile = tf.constant([0, 1, 2])
 b_tile = tf.expand_dims(b_tile, axis=0)
 print(b_tile)
