@@ -36,6 +36,8 @@ model.summary()
 
 optimizer = optimizers.SGD(learning_rate=0.001)
 
+log_dir = "E:\program\workspace\pycharm\/tensorflow2\/tensorboard"
+summary_writer = tf.summary.create_file_writer(log_dir)
 
 def train():
     for epoch in range(3):
@@ -50,8 +52,10 @@ def train():
                 # 更新参数
                 optimizer.apply_gradients(zip(grads, model.trainable_variables))
 
-                if step % 100 == 0:
-                    print(epoch, step, loss)
+                with summary_writer.as_default():
+                    if step % 100 == 0:
+                        print(epoch, step, loss)
+                        tf.summary.scalar('train-loss', float(loss), step=step)
 
 
 if __name__ == '__main__':
